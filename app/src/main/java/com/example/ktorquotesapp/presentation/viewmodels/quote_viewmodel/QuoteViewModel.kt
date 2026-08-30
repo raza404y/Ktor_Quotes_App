@@ -11,7 +11,8 @@ import kotlinx.coroutines.launch
 
 class QuoteViewModel(private val getQuotesByIdUseCase: GetQuotesByIdUseCase) : ViewModel() {
 
-    private var state by mutableStateOf(QuoteUiState())
+     var state by mutableStateOf(QuoteUiState())
+         private set
 
 
     fun loadQuoteById(id: Int) {

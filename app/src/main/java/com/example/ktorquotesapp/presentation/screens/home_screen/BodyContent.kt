@@ -31,12 +31,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.ktorquotesapp.domain.models.Quote
+import com.example.ktorquotesapp.presentation.navigation.QuoteNavGraph
+import com.example.ktorquotesapp.presentation.screens.quote_screen.QuoteScreen
 import com.example.ktorquotesapp.presentation.theme.Purple_Light
 import com.example.ktorquotesapp.presentation.theme.Purple_Solid
 
 @Composable
-fun BodyContent(quotes: List<Quote>) {
+fun BodyContent(navController: NavController, quotes: List<Quote>) {
 
     val randomQuote = quotes.random()
 
@@ -68,7 +71,7 @@ fun BodyContent(quotes: List<Quote>) {
             Spacer(modifier = Modifier.height(12.dp))
 
             Text(
-                text = "--${ randomQuote.author }",
+                text = "--${randomQuote.author}",
                 modifier = Modifier.padding(horizontal = 8.dp),
                 color = Purple_Solid
             )
@@ -119,7 +122,6 @@ fun BodyContent(quotes: List<Quote>) {
     } // row
 
 
-
     LazyColumn(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(8.dp)
@@ -127,7 +129,12 @@ fun BodyContent(quotes: List<Quote>) {
 
         items(quotes) { singleQuote ->
 
-            QuoteCard(singleQuote)
+            QuoteCard(
+                singleQuote,
+                onQuoteClick = {
+                    navController.navigate(
+                        QuoteNavGraph.QuoteScreen(singleQuote.id))
+                })
         }
     }
 

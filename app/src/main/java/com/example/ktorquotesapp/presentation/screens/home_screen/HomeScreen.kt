@@ -14,6 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.example.ktorquotesapp.presentation.ui_components.ErrorMessage
 import com.example.ktorquotesapp.presentation.ui_components.MyProgressBar
 import com.example.ktorquotesapp.presentation.viewmodels.home_viewmodel.HomeViewModel
@@ -21,6 +22,7 @@ import com.example.ktorquotesapp.presentation.viewmodels.home_viewmodel.HomeView
 
 @Composable
 fun HomeScreen(
+    navController: NavController,
     viewModel: HomeViewModel = viewModel(factory = HomeViewModelFactory())
 ) {
     val uiState = viewModel.state.value
@@ -56,7 +58,7 @@ fun HomeScreen(
                     )
                 }
                 else ->{
-                    BodyContent(uiState.quotes)
+                    BodyContent(navController,uiState.quotes)
                 }
 
             }

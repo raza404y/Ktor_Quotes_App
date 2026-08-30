@@ -1,6 +1,7 @@
 package com.example.ktorquotesapp.presentation.screens.home_screen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -28,19 +29,24 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.ktorquotesapp.domain.models.Quote
 import com.example.ktorquotesapp.presentation.theme.Purple_Extra_Light
 import com.example.ktorquotesapp.presentation.theme.Purple_Light
 import com.example.ktorquotesapp.presentation.theme.Purple_Solid
 
 @Composable
-fun QuoteCard(singleQuote: Quote) {
+fun QuoteCard(
+    singleQuote: Quote,
+    onQuoteClick: () -> Unit
+) {
 
     Spacer(Modifier.height(14.dp))
 
     Card(
         modifier = Modifier
-            .fillMaxSize(),
+            .fillMaxSize()
+            .clickable(onClick = {onQuoteClick()}),
         colors = CardDefaults.cardColors(
             containerColor = Color.White
         ),
@@ -72,9 +78,11 @@ fun QuoteCard(singleQuote: Quote) {
             }
             Spacer(Modifier.width(12.dp))
 
-            Column (
-                modifier = Modifier.fillMaxWidth().weight(1f)
-            ){
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+            ) {
                 Text(
                     text = singleQuote.quote,
                     maxLines = 2,
@@ -91,7 +99,10 @@ fun QuoteCard(singleQuote: Quote) {
             Icon(
                 imageVector = Icons.Default.BookmarkBorder,
                 contentDescription = null,
-                modifier = Modifier.size(24.dp).weight(.13f))
+                modifier = Modifier
+                    .size(24.dp)
+                    .weight(.13f)
+            )
         }
 
 
